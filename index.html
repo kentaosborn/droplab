@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="icon" type="image/jpeg" href="droplab3.jpg" sizes="32x32">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DROPLAB STUDIO | One-Man Creative Powerhouse for Artists</title>
+    <title>DROPLAB STUDIO | Creative Powerhouse for Artists & Brands</title>
+    <!-- FAVICON LINK: Using the droplab3.jpg file as requested --><link rel="icon" type="image/jpeg" href="droplab3.jpg" sizes="32x32">
+    
     <!-- Load Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    
     <!-- Configure Tailwind for Inter font and custom colors --><script>
         tailwind.config = {
             theme: {
@@ -15,6 +17,7 @@
                         'accent': '#3B82F6', // Electric Blue
                         'accent-dark': '#2563EB',
                         'card-bg': '#1E293B',
+                        'total-bg': '#2E4057', // A slightly lighter blue/gray for the total box
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -44,29 +47,68 @@
             bottom: 0;
             width: 50%;
             height: 3px;
-            /* Note: We use Tailwind utility in the JS config, but inline styles require a standard value */
             background-color: #3B82F6; 
             border-radius: 9999px;
+        }
+        /* Custom checkbox styling */
+        .custom-checkbox {
+            appearance: none;
+            width: 1.5rem;
+            height: 1.5rem;
+            border: 2px solid #3B82F6;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            position: relative;
+            margin-right: 0.75rem;
+        }
+        .custom-checkbox:checked {
+            background-color: #3B82F6;
+            border-color: #3B82F6;
+        }
+        .custom-checkbox:checked::after {
+            content: '\2713'; /* Checkmark icon */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+        /* Style for the quantity input */
+        .quantity-input {
+            text-align: center;
+            background-color: #10172A; /* dark-bg */
+            border: 1px solid #3B82F6; /* accent */
+            color: #fff;
+            padding: 0.3rem 0.5rem;
+            border-radius: 0.375rem;
+        }
+        /* Custom style to make all cards the same height and align content vertically */
+        .service-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 22rem; /* Set a minimum height for visual leveling */
         }
     </style>
 </head>
 <body class="bg-dark-bg text-gray-100 font-sans">
 
-   <!-- Navigation Bar -->
-    <header class="sticky top-0 z-50 bg-dark-bg/95 backdrop-blur-sm shadow-lg">
+    <!-- Navigation Bar --><header class="sticky top-0 z-50 bg-dark-bg/95 backdrop-blur-sm shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
-                <!-- LOGO: Replaced text with a placeholder image for easy replacement -->
-                <a href="#" class="flex items-center h-full">
-                    <!-- Placeholder Logo Image - Replace this 'src' with your actual logo URL (e.g., droplab2.jpg) -->
-                    <img src="droplablogo.png" 
-                         alt="Creative Agency Logo Placeholder" 
-                         class="h-10 w-auto rounded-sm">
+                <!-- LOGO (User Placeholder for local replacement: logo.png) --><a href="#" class="flex items-center h-full">
+                    <img src="logo.png" 
+                             onerror="this.onerror=null;this.src='https://placehold.co/160x40/3B82F6/FFFFFF?text=DROPLAB+LOGO';"
+                             alt="DROPLAB STUDIO Logo Placeholder" 
+                             class="h-10 w-auto rounded-sm">
                 </a>
                 <nav class="hidden md:flex space-x-8">
                     <a href="#services" class="text-gray-300 hover:text-accent transition duration-300">Services</a>
                     <a href="#portfolio" class="text-gray-300 hover:text-accent transition duration-300">Portfolio</a>
-                    <a href="#pricing" class="text-gray-300 hover:text-accent transition duration-300">Packages</a>
+                    <a href="#pricing" class="text-gray-300 hover:text-accent transition duration-300">Pricing Builder</a>
+                    <a href="#testimonials" class="text-gray-300 hover:text-accent transition duration-300">Testimonials</a>
                     <a href="#contact" class="text-gray-300 hover:text-accent transition duration-300">Contact</a>
                 </nav>
                 <a href="#contact" class="hidden md:block px-4 py-2 bg-accent hover:bg-accent-dark text-white font-semibold rounded-lg glow transition duration-300">
@@ -80,194 +122,315 @@
         <!-- Mobile Menu (Hidden by default) --><div id="mobile-menu" class="hidden md:hidden px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-dark-bg/95 backdrop-blur-sm">
             <a href="#services" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-card-bg hover:text-accent">Services</a>
             <a href="#portfolio" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-card-bg hover:text-accent">Portfolio</a>
-            <a href="#pricing" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-card-bg hover:text-accent">Packages</a>
-            <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-card-bg hover:text-accent">Contact</a>
+            <a href="#pricing" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-card-bg hover:text-accent">Pricing Builder</a>
+            <a href="#testimonials" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-card-bg hover:text-accent">Testimonials</a>
             <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium bg-accent text-white text-center mt-2">START PROJECT</a>
         </div>
     </header>
 
     <main>
-        <!-- 1. Hero Section --><section class="relative h-screen flex items-center justify-center text-center overflow-hidden">
-            <div class="absolute inset-0 bg-dark-bg opacity-70"></div>
-            <!-- Background Visual Effect (Subtle Noise/Pattern) --><div class="absolute inset-0" style="background-image: url('https://placehold.co/1920x1080/000000/000000?text=.'); background-size: 1px 1px; opacity: 0.05;"></div>
+        <!-- 1. Hero Section (General Audience Focus) --><section class="relative h-screen flex items-center justify-center text-center overflow-hidden">
+            <!-- New Background Image - Using droplab2.jpg --><div class="absolute inset-0 bg-cover bg-center" style="background-image: url('droplab2.jpg');"></div>
+            <!-- Dark Overlay (Adjusted to opacity-90 for maximum readability) --><div class="absolute inset-0 bg-dark-bg opacity-90"></div>
 
             <div class="max-w-4xl mx-auto px-4 z-10">
                 <h1 class="text-6xl sm:text-7xl md:text-8xl font-black mb-4 leading-tight">
-                    <span class="block text-white">THE RAP GAME'S</span>
+                    <span class="block text-white">YOUR BRAND'S</span>
                     <span class="block text-accent">ONE-MAN</span>
                     <span class="block text-white">CREATIVE POWERHOUSE</span>
                 </h1>
+                <!-- CONVERSION REFINEMENT: Added Scarcity Message -->
                 <p class="text-xl sm:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                    Stop juggling contractors. Get full-stack creative services from one source. Personal, professional, and built for results.
+                    Stop juggling contractors. Get full-stack creative services for **Artists, Labels, and Apparel Brands**. **Capacity is limited.** Built for results.
                 </p>
-                <a href="#services" class="px-8 py-4 text-lg font-bold bg-accent hover:bg-accent-dark text-white rounded-xl glow transition duration-300 transform hover:scale-105">
-                    VIEW ALL SERVICES
+                <a href="#pricing" class="px-8 py-4 text-lg font-bold bg-accent hover:bg-accent-dark text-white rounded-xl glow transition duration-300 transform hover:scale-105">
+                    BUILD YOUR PROJECT
+                </a>
+                <!-- CONVERSION REFINEMENT: Secondary CTA to Portfolio -->
+                <a href="#portfolio" class="block mt-4 text-sm font-medium text-gray-400 hover:text-accent transition duration-300">
+                    See Recent Case Studies →
                 </a>
             </div>
         </section>
 
-        <!-- 2. Services Section --><section id="services" class="py-24 bg-card-bg/50">
+        <!-- 2. Services Section (Updated Descriptions with neutral naming) --><section id="services" class="py-24 bg-card-bg/50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="text-4xl font-extrabold text-white mb-12 section-title">SERVICES: THE FULL PACKAGE</h2>
 
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- The service card grid has no padding/margin issues now. --><div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                     
-                    <!-- Service Card 1: Graphic Design --><div class="bg-card-bg p-6 rounded-xl border border-gray-700 hover:border-accent glow">
-                        <!-- Icon: Mobile/Design --><svg class="w-10 h-10 text-accent mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-                        <h3 class="text-2xl font-bold text-white mb-3">Graphic Design</h3>
-                        <p class="text-gray-400">Album covers that break the internet, full merch lines, tour flyers, and all promotional visuals. Ready for print and digital.</p>
+                    <!-- Service Card 1: Visual Identity & Assets --><div class="bg-card-bg p-6 rounded-xl border border-gray-700 hover:border-accent glow service-card">
+                        <div>
+                            <!-- Icon: Pen Tool/Design --><svg class="w-10 h-10 text-accent mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                            <h3 class="text-2xl font-bold text-white mb-3">Visual Identity & Assets</h3>
+                            <p class="text-gray-400">Identity systems that translate across media. From release cover art to full apparel lookbooks and promotional graphics.</p>
+                        </div>
                         <ul class="mt-4 space-y-2 text-sm text-gray-400">
-                            <li>• High-Impact Album Art</li>
-                            <li>• Merch & Apparel Design</li>
-                            <li>• Social Media Promo Kits</li>
+                            <li>• Logo Suite</li>
+                            <li>• Album Cover Art</li>
+                            <li>• Apparel Graphic Design (Per Unit)</li>
                         </ul>
                     </div>
                     
-                    <!-- Service Card 2: Web Design --><div class="bg-card-bg p-6 rounded-xl border border-gray-700 hover:border-accent glow">
-                        <!-- Icon: Globe/Web --><svg class="w-10 h-10 text-accent mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v20M5.2 17.8l-1.4 1.4M18.8 17.8l1.4 1.4M12 10s-5-3-5 0 5 3 5 3"></path></svg>
-                        <h3 class="text-2xl font-bold text-white mb-3">Web Design</h3>
-                        <p class="text-gray-400">Professional artist sites, high-converting album landing pages, and custom Shopify/e-commerce merch stores.</p>
+                    <!-- Service Card 2: Digital Presence & Commerce --><div class="bg-card-bg p-6 rounded-xl border border-gray-700 hover:border-accent glow service-card">
+                        <div>
+                            <!-- Icon: Shopping Cart / Store --><svg class="w-10 h-10 text-accent mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                            <h3 class="text-2xl font-bold text-white mb-3">Digital Presence & Commerce</h3>
+                            <p class="text-gray-400">High-converting online stores, portfolio sites, and dedicated **product drop** or **album release** landing pages built for speed.</p>
+                        </div>
                         <ul class="mt-4 space-y-2 text-sm text-gray-400">
-                            <li>• Mobile-First Artist Sites</li>
-                            <li>• Album Pre-Save Funnels</li>
-                            <li>• Integrated Merch Stores</li>
+                            <li>• High-Converting Website Landing Page</li>
+                            <li>• Fully Custom Built Website and Shop</li>
                         </ul>
                     </div>
                     
-                    <!-- Service Card 3: Marketing Strategy --><div class="bg-card-bg p-6 rounded-xl border border-gray-700 hover:border-accent glow">
-                        <!-- Icon: Chart/Arrows --><svg class="w-10 h-10 text-accent mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8m-3-3H4m0 0v8m0-8l8 8"></path></svg>
-                        <h3 class="text-2xl font-bold text-white mb-3">Marketing Strategy</h3>
-                        <p class="text-gray-400">Data-driven content strategy and managed Meta (Facebook/IG) ad campaigns to maximize streams and audience reach.</p>
+                    <!-- Service Card 3: Launch Strategy & Scaling --><div class="bg-card-bg p-6 rounded-xl border border-gray-700 hover:border-accent glow service-card">
+                        <div>
+                            <!-- Icon: Chart/Arrows --><svg class="w-10 h-10 text-accent mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8m-3-3H4m0 0v8m0-8l8 8"></path></svg>
+                            <h3 class="text-2xl font-bold text-white mb-3">Launch Strategy & Scaling</h3>
+                            <p class="text-gray-400">Data-driven strategy for releases and product drops. Managed digital ad campaigns for maximum visibility and sales.</p>
+                        </div>
                         <ul class="mt-4 space-y-2 text-sm text-gray-400">
-                            <li>• Meta Ads Management</li>
-                            <li>• Release Content Planning</li>
-                            <li>• Audience Growth Funnels</li>
+                            <li>• Ad Campaign Management (Performance Based)</li>
+                            <li>• 30-Day Release Strategy (ALL CONTENT INCLUDED)</li>
+                            <li>• Performance Analytics Review</li>
                         </ul>
                     </div>
                     
-                    <!-- Service Card 4: Video Editing --><div class="bg-card-bg p-6 rounded-xl border border-gray-700 hover:border-accent glow">
-                        <!-- Icon: Video Camera/Play --><svg class="w-10 h-10 text-accent mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M4 21h8a2 2 0 002-2v-8a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                        <h3 class="text-2xl font-bold text-white mb-3">Video Editing</h3>
-                        <p class="text-gray-400">Dynamic music video cuts, promotional visuals for drops, and highly-engaging short-form edits for TikTok/Reels.</p>
+                    <!-- Service Card 4: Dynamic Media & Content --><div class="bg-card-bg p-6 rounded-xl border border-gray-700 hover:border-accent glow service-card">
+                        <div>
+                            <!-- Icon: Video Camera/Play --><svg class="w-10 h-10 text-accent mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M4 21h8a2 2 0 002-2v-8a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            <h3 class="text-2xl font-bold text-white mb-3">Dynamic Media & Content</h3>
+                            <p class="text-gray-400">Cinematic video editing for music, brand lookbooks, and highly engaging vertical video for all platforms.</p>
+                        </div>
                         <ul class="mt-4 space-y-2 text-sm text-gray-400">
-                            <li>• Music Video Post-Production</li>
-                            <li>• Short-Form Vertical Edits</li>
-                            <li>• Promotional Visualizers</li>
+                            <li>• Music Video Edit</li>
+                            <li>• Short Form Video Content Package (10 Edits)</li>
+                            <li>• Product Demonstration Visuals</li>
                         </ul>
                     </div>
 
                 </div>
+                
+                <!-- NEW RETAINER CARD --><div class="flex justify-center mt-8">
+                    <!-- Adjusted width to be 3/4 on large screens for better centering and visual weight --><div class="w-full md:w-5/6 lg:w-3/4 bg-card-bg p-6 sm:p-8 rounded-xl border-4 border-accent shadow-xl glow">
+                        <div class="flex items-start">
+                            <!-- Icon: Diamond/Exclusive --><svg class="w-10 h-10 text-white flex-shrink-0 mr-4 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.003 2.003 5.996 5.997L15.998 21.002 10 19.001 5.998 15.001 3 10l5.001-5.001L10 3m11 5l-2.003-2.003-5.996-5.997L8.002 3.001 13 5m0-2h4"></path></svg>
+                            <div>
+                                <h3 class="text-2xl font-bold text-white mb-3">Long-Term Partnership & Retainer</h3>
+                                <p class="text-gray-400">The highest tier of service for Labels and established Brands. This secures dedicated, priority access to all creative services on an ongoing basis. **Limited slots available.**</p>
+                            </div>
+                        </div>
+                        <div class="mt-6 text-center">
+                            <a href="#pricing" class="px-6 py-2 bg-accent hover:bg-accent-dark text-white font-semibold rounded-lg transition duration-300">
+                                EXPLORE RETAINER OPTIONS
+                            </a>
+                        </div>
+                    </div>
+                </div>
 
-                <div class="text-center mt-16">
-                    <p class="text-xl text-gray-300">
+                <!-- CONVERSION REFINEMENT: Added CTA to Pricing Builder --><div class="text-center mt-16">
+                    <p class="text-xl text-gray-300 mb-8">
                         The Advantage: One point of contact. Total creative alignment. No bottlenecks.
                     </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 3. Portfolio Section --><section id="portfolio" class="py-24">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-4xl font-extrabold text-white mb-12 section-title">EXAMPLE WORK:</h2>
-
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    
-                    <!-- Portfolio Item 1: Album Cover --><div class="rounded-xl overflow-hidden shadow-xl border-4 border-card-bg hover:border-accent transition duration-300">
-                        <img src="https://placehold.co/600x600/1C3C58/FFFFFF?text=ALBUM+COVER+DESIGN" alt="Album Cover Design Example" class="w-full h-auto object-cover">
-                        <div class="p-4 bg-card-bg">
-                            <h4 class="text-xl font-semibold text-white">Title: VORTEX</h4>
-                            <p class="text-gray-400">Service: Graphic Design / Album Art</p>
-                        </div>
-                    </div>
-
-                    <!-- Portfolio Item 2: Artist Website --><div class="rounded-xl overflow-hidden shadow-xl border-4 border-card-bg hover:border-accent transition duration-300">
-                        <img src="https://placehold.co/600x400/4B354F/FFFFFF?text=ARTIST+WEBSITE+MOCKUP" alt="Artist Website Mockup Example" class="w-full h-auto object-cover">
-                        <div class="p-4 bg-card-bg">
-                            <h4 class="text-xl font-semibold text-white">Title: KINGDOM</h4>
-                            <p class="text-gray-400">Service: Web Design / Full Artist Site</p>
-                        </div>
-                    </div>
-
-                    <!-- Portfolio Item 3: Promo Video Still --><div class="rounded-xl overflow-hidden shadow-xl border-4 border-card-bg hover:border-accent transition duration-300">
-                        <img src="https://placehold.co/600x600/3E5F3B/FFFFFF?text=PROMO+VISUALS" alt="Promotional Visual Still Example" class="w-full h-auto object-cover">
-                        <div class="p-4 bg-card-bg">
-                            <h4 class="text-xl font-semibold text-white">Title: STREET RUSH</h4>
-                            <p class="text-gray-400">Service: Video Editing / Short-Form Edit</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-center mt-12">
-                    <a href="#contact" class="px-6 py-3 text-lg font-semibold border-2 border-accent text-accent hover:bg-accent hover:text-white rounded-lg transition duration-300">
-                        SEE MORE EXAMPLES
+                    <a href="#pricing" class="px-8 py-4 text-lg font-bold bg-accent hover:bg-accent-dark text-white rounded-xl glow transition duration-300 transform hover:scale-105">
+                        CUSTOMIZE MY PACKAGE
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- 4. Pricing / Packages Section --><section id="pricing" class="py-24 bg-card-bg/50">
+        <!-- 3. Portfolio Section (Updated to reflect a Case Study approach) --><section id="portfolio" class="py-24">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-4xl font-extrabold text-white mb-12 section-title">INVESTMENT: FLEXIBLE PACKAGES</h2>
+                <h2 class="text-4xl font-extrabold text-white mb-12 section-title">PAST WORK: THE VISUALS</h2>
 
-                <div class="grid md:grid-cols-3 gap-8">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     
-                    <!-- Package 1: Single Drop --><div class="bg-card-bg p-8 rounded-xl shadow-2xl border-t-4 border-gray-700 text-center glow">
-                        <h3 class="text-2xl font-bold text-white mb-4">THE SINGLE DROP</h3>
-                        <p class="text-gray-400 mb-6">Perfect for quick, high-impact releases.</p>
-                        <div class="text-5xl font-black text-white mb-8">
-                            $500<span class="text-xl text-gray-400 block font-normal">Starting at</span>
+                    <!-- Portfolio Item 1: Visible by default --><div class="rounded-xl overflow-hidden shadow-xl border-4 border-card-bg hover:border-accent transition duration-300">
+                        <img src="https://placehold.co/600x600/1C3C58/FFFFFF?text=COMPLETE+BRAND+SYSTEM+MOCKUP" alt="Visual Identity System Example" class="w-full h-auto object-cover">
+                        <div class="p-4 bg-card-bg">
+                            <h4 class="text-xl font-semibold text-white">CASE STUDY: THE PULSE BRANDING</h4>
+                            <!-- UPDATED FOCUS LINE -->
+                            <p class="text-gray-400">Focus: Multi-Tiered Brand Guideline, Animated Logo Visuals & 12 Merch Items</p>
                         </div>
-                        <ul class="text-left space-y-3 text-gray-300 mb-8">
-                            <li class="flex items-center"><span class="text-accent mr-2">&#10003;</span> Album Art (Single)</li>
-                            <li class="flex items-center"><span class="text-accent mr-2">&#10003;</span> 3 Social Promo Graphics</li>
-                            <li class="flex items-center"><span class="text-accent mr-2">&#10003;</span> Basic Content Strategy Guide</li>
-                            <li class="flex items-center"><span class="text-accent mr-2">&#10003;</span> Dedicated Web Landing Page</li>
-                            <li class="flex items-center"><span class="text-accent mr-2">&#10003;</span> 1 Merch Design</li>
-                        </ul>
-                        <a href="#contact" class="block w-full py-3 bg-accent hover:bg-accent-dark text-white font-semibold rounded-lg transition duration-300">Book Now</a>
+                    </div>
+
+                    <!-- Portfolio Item 2: Visible by default --><div class="rounded-xl overflow-hidden shadow-xl border-4 border-card-bg hover:border-accent transition duration-300">
+                        <img src="https://placehold.co/600x600/4B354F/FFFFFF?text=E-COMMERCE+DROP+LANDING+PAGE" alt="Product Drop Website Mockup Example" class="w-full h-auto object-cover">
+                        <div class="p-4 bg-card-bg">
+                            <h4 class="text-xl font-semibold text-white">CASE STUDY: 'ZERO HOUR' DROP</h4>
+                            <!-- UPDATED FOCUS LINE -->
+                            <p class="text-gray-400">Focus: Shopify Speed Optimization, High-AOV Strategy & 48-Hour Drop Launch</p>
+                        </div>
+                    </div>
+
+                    <!-- Portfolio Item 3: Visible by default --><div class="rounded-xl overflow-hidden shadow-xl border-4 border-card-bg hover:border-accent transition duration-300">
+                        <img src="https://placehold.co/600x600/3E5F3B/FFFFFF?text=VERTICAL+VIDEO+CONTENT+MOCKUP" alt="Short Form Video Content Example" class="w-full h-auto object-cover">
+                        <div class="p-4 bg-card-bg">
+                            <h4 class="text-xl font-semibold text-white">CASE STUDY: 30-DAY LAUNCH CONTENT</h4>
+                            <p class="text-gray-400">Focus: Dynamic Media, Video Editing & Scaling Strategy</p>
+                        </div>
                     </div>
                     
-                    <!-- Package 2: Album/EP Launch (Recommended) --><div class="bg-card-bg p-8 rounded-xl shadow-2xl border-t-4 border-accent text-center transform scale-105 glow">
-                        <span class="inline-block bg-accent px-3 py-1 text-xs font-bold uppercase rounded-full mb-4">Most Popular</span>
-                        <h3 class="text-2xl font-bold text-white mb-4">THE ALBUM LAUNCH</h3>
-                        <p class="text-gray-400 mb-6">Comprehensive services for a full EP or Album release.</p>
-                        <div class="text-5xl font-black text-white mb-8">
-                            $1500<span class="text-xl text-gray-400 block font-normal">Starting at</span>
+                    <!-- Hidden Case Studies Container (Initially Hidden) --><div id="hidden-case-studies" class="lg:col-span-3 grid md:grid-cols-2 lg:grid-cols-3 gap-8 hidden">
+                        
+                        <!-- Portfolio Item 4 --><div class="rounded-xl overflow-hidden shadow-xl border-4 border-card-bg hover:border-accent transition duration-300">
+                            <img src="https://placehold.co/600x600/9C27B0/FFFFFF?text=FASHION+LOOKBOOK+VISUALS" alt="Fashion Lookbook Visuals" class="w-full h-auto object-cover">
+                            <div class="p-4 bg-card-bg">
+                                <h4 class="text-xl font-semibold text-white">CASE STUDY: FASHION LOOKBOOK V.1</h4>
+                                <p class="text-gray-400">Focus: Product Photography, Art Direction & Catalog Design</p>
+                            </div>
                         </div>
-                        <ul class="text-left space-y-3 text-gray-300 mb-8">
-                            <li class="flex items-center"><span class="text-accent mr-2">&#10003;</span> Album Cover & Booklet Design</li>
-                            <li class="flex items-center"><span class="text-accent mr-2">&#10003;</span> Full Release Content Calendar</li>
-                            <li class="flex items-center"><span class="text-accent mr-2">&#10003;</span> Dedicated Web Landing Page</li>
-                            <li class="flex items-center"><span class="text-accent mr-2">&#10003;</span> 3 Merch Designs</li>
-                            <li class="flex items-center"><span class="text-accent mr-2">&#10003;</span> 4 Short-Form Video Edits</li>
-                        </ul>
-                        <a href="#contact" class="block w-full py-3 bg-accent hover:bg-accent-dark text-white font-semibold rounded-lg transition duration-300">Let's Talk</a>
+
+                        <!-- Portfolio Item 5 --><div class="rounded-xl overflow-hidden shadow-xl border-4 border-card-bg hover:border-accent transition duration-300">
+                            <img src="https://placehold.co/600x600/4B354F/FFFFFF?text=E-COMMERCE+DROP+LANDING+PAGE" alt="Product Drop Website Mockup Example" class="w-full h-auto object-cover">
+                            <div class="p-4 bg-card-bg">
+                                <h4 class="text-xl font-semibold text-white">CASE STUDY: INTERACTIVE PORTFOLIO</h4>
+                                <p class="text-gray-400">Focus: Custom Web Development & 3D Environment</p>
+                            </div>
+                        </div>
+
+                        <!-- Portfolio Item 6 --><div class="rounded-xl overflow-hidden shadow-xl border-4 border-card-bg hover:border-accent transition duration-300">
+                            <img src="https://placehold.co/600x600/E91E63/FFFFFF?text=SINGLE+RELEASE+PACKAGE" alt="Single Release Package" class="w-full h-auto object-cover">
+                            <div class="p-4 bg-card-bg">
+                                <h4 class="text-xl font-semibold text-white">CASE STUDY: SINGLE ART PACKAGE</h4>
+                                <p class="text-gray-400">Focus: Cover Art, Animated Visualizer & Social Media Assets</p>
+                            </div>
+                        </div>
+
+                        <!-- Portfolio Item 7 --><div class="rounded-xl overflow-hidden shadow-xl border-4 border-card-bg hover:border-accent transition duration-300">
+                            <img src="https://placehold.co/600x600/00BCD4/FFFFFF?text=APPAREL+MERCHLINE+CONCEPT" alt="Apparel Merchline Concept" class="w-full h-auto object-cover">
+                            <div class="p-4 bg-card-bg">
+                                <h4 class="text-xl font-semibold text-white">CASE STUDY: MERCHLINE EXPANSION</h4>
+                                <p class="text-gray-400">Focus: 10 Unique Garment Designs & Shopify Integration</p>
+                            </div>
+                        </div>
+
+                        <!-- Portfolio Item 8 --><div class="rounded-xl overflow-hidden shadow-xl border-4 border-card-bg hover:border-accent transition duration-300">
+                            <img src="https://placehold.co/600x600/FFC107/000000?text=STAGE+VISUALS+DESIGN" alt="Stage Visuals Design" class="w-full h-auto object-cover">
+                            <div class="p-4 bg-card-bg">
+                                <h4 class="text-xl font-semibold text-white">CASE STUDY: FESTIVAL VISUALS</h4>
+                                <p class="text-gray-400">Focus: VJ Loops, 4K Renders & Live Performance Assets</p>
+                            </div>
+                        </div>
+
+                        <!-- Portfolio Item 9 --><div class="rounded-xl overflow-hidden shadow-xl border-4 border-card-bg hover:border-accent transition duration-300">
+                            <img src="https://placehold.co/600x600/8BC34A/FFFFFF?text=PRODUCT+DEMO+VIDEO" alt="Product Demo Video" class="w-full h-auto object-cover">
+                            <div class="p-4 bg-card-bg">
+                                <h4 class="text-xl font-semibold text-white">CASE STUDY: APP DEMONSTRATION</h4>
+                                <p class="text-gray-400">Focus: UI/UX Mockups, Explainer Video & Promotional Assets</p>
+                            </div>
+                        </div>
+
                     </div>
                     
-                    <!-- Package 3: Agency Retainer --><div class="bg-card-bg p-8 rounded-xl shadow-2xl border-t-4 border-gray-700 text-center glow">
-                        <h3 class="text-2xl font-bold text-white mb-4">LABEL RETAINER</h3>
-                        <p class="text-gray-400 mb-6">Ongoing, priority support for artists or small labels.</p>
-                        <div class="text-5xl font-black text-white mb-8">
-                            Custom<span class="text-xl text-gray-400 block font-normal">Monthly Rate</span>
+                </div>
+                
+                <!-- The new "Load More" button --><div class="text-center mt-12">
+                    <button id="load-more-btn" class="px-6 py-3 text-lg font-semibold border-2 border-accent text-accent hover:bg-accent hover:text-white rounded-lg transition duration-300">
+                        SEE 6 MORE CASE STUDIES
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Pricing / Service Builder Section (Updated Category and Service Names) --><section id="pricing" class="py-24 bg-card-bg/50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-extrabold text-white mb-12 section-title">SERVICE BUILDER: CUSTOM INVESTMENT</h2>
+                <p class="text-xl text-gray-300 mb-10 max-w-3xl">
+                    Select the specific services you need below. The total cost of your custom project will update automatically.
+                </p>
+
+                <div class="grid lg:grid-cols-3 gap-10">
+                    
+                    <!-- Checklist Column (2/3 width on desktop) --><div id="service-checklist-container" class="lg:col-span-2 space-y-8 bg-card-bg p-6 sm:p-8 rounded-xl border border-gray-700">
+                        <div id="service-checklist" class="space-y-4">
+                            <!-- Services will be injected here by JavaScript --></div>
+                    </div>
+
+                    <!-- Price Summary Column (1/3 width on desktop) --><div class="lg:col-span-1 sticky top-24 h-fit">
+                        <div class="bg-total-bg p-8 rounded-xl shadow-2xl border-t-4 border-accent">
+                            <h3 class="text-3xl font-bold text-white mb-4">PROJECT TOTAL</h3>
+                            <p class="text-gray-400 mb-6">Your customized investment based on selected services:</p>
+                            
+                            <!-- Total Display --><div class="flex justify-between items-end border-t border-gray-600 pt-4">
+                                <span class="text-2xl font-light text-gray-200">Subtotal:</span>
+                                <span id="current-total" class="text-4xl font-extrabold text-accent">$0</span>
+                            </div>
+
+                            <!-- CONVERSION REFINEMENT: Updated default text -->
+                            <a href="#contact" id="contact-cta-button" class="mt-8 block w-full py-4 text-lg font-bold bg-accent hover:bg-accent-dark text-white rounded-xl text-center transition duration-300 opacity-60 pointer-events-none">
+                                Select Services to Calculate Cost
+                            </a>
                         </div>
-                        <ul class="text-left space-y-3 text-gray-300 mb-8">
-                            <li class="flex items-center"><span class="text-accent mr-2">&#10003;</span> Unlimited Priority Graphics</li>
-                            <li class="flex items-center"><span class="text-accent mr-2">&#10003;</span> Dedicated Meta Ad Spend Oversight</li>
-                            <li class="flex items-center"><span class="text-accent mr-2">&#10003;</span> Monthly Strategy Call</li>
-                            <li class="flex items-center"><span class="text-accent mr-2">&#10003;</span> Discounted Web/Video Projects</li>
-                        </ul>
-                        <a href="#contact" class="block w-full py-3 bg-accent hover:bg-accent-dark text-white font-semibold rounded-lg transition duration-300">Inquire</a>
                     </div>
 
                 </div>
             </div>
         </section>
+        
+        <!-- 5. Testimonials & Client Trust Section (NEW) --><section id="testimonials" class="py-24 bg-dark-bg/50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Quantifiable Proof Points --><div class="flex flex-wrap justify-center gap-8 text-center mb-16">
+                    <div class="p-4 bg-card-bg rounded-lg">
+                        <p class="text-4xl font-extrabold text-accent">30+</p>
+                        <p class="text-gray-300">Successful Merch Drops</p>
+                    </div>
+                    <div class="p-4 bg-card-bg rounded-lg">
+                        <p class="text-4xl font-extrabold text-accent">$500K+</p>
+                        <p class="text-gray-300">In Client Sales Generated</p>
+                    </div>
+                    <div class="p-4 bg-card-bg rounded-lg">
+                        <p class="text-4xl font-extrabold text-accent">5 Stars</p>
+                        <p class="text-gray-300">Average Client Rating</p>
+                    </div>
+                </div>
+                
+                <h2 class="text-4xl font-extrabold text-white mb-16 text-center section-title mx-auto">TRUSTED BY INDUSTRY LEADERS</h2>
 
-        <!-- 5. Contact Section / CTA --><section id="contact" class="py-24">
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Testimonial 1 --><div class="bg-card-bg p-8 rounded-xl border border-gray-700 shadow-xl">
+                        <p class="text-xl italic text-gray-300 mb-6">"DROPLAB didn't just design our graphics; they rebuilt our entire brand identity for our European tour. The attention to detail and speed was unmatched. Instant ROI."</p>
+                        <div class="font-semibold text-white">
+                            <p>— Alex P., Creative Director</p>
+                            <p class="text-accent text-sm">Major Electronic Music Label</p>
+                        </div>
+                    </div>
+                    <!-- Testimonial 2 --><div class="bg-card-bg p-8 rounded-xl border border-gray-700 shadow-xl">
+                        <p class="text-xl italic text-gray-300 mb-6">"The product drop landing page was flawless and converted at nearly 12%, doubling our previous record. The focus on performance is what sets this service apart."</p>
+                        <div class="font-semibold text-white">
+                            <p>— Jenna K., Apparel Owner</p>
+                            <p class="text-accent text-sm">Streetwear Brand (USA)</p>
+                        </div>
+                    </div>
+                    <!-- Testimonial 3 --><div class="bg-card-bg p-8 rounded-xl border border-gray-700 shadow-xl">
+                        <p class="text-xl italic text-gray-300 mb-6">"From a raw video file to 10 viral-ready short edits in under a week. This is the fastest, most streamlined creative service I've ever used. Essential for daily content."</p>
+                        <div class="font-semibold text-white">
+                            <p>— Marcus "MXX" X., Recording Artist</p>
+                            <p class="text-accent text-sm">Platinum Selling Producer/DJ</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Placeholder for Client Logos --><div class="mt-20 border-t border-b border-gray-700 py-6">
+                    <p class="text-center text-gray-500 mb-4 uppercase tracking-wider">Previously Supported</p>
+                    <div class="flex justify-center items-center flex-wrap gap-x-12 gap-y-6 opacity-70">
+                        <!-- Placeholder Logos - Replace these with actual image URLs of clients you have permission to display. -->
+                        <img src="https://placehold.co/100x30/1E293B/9CA3AF?text=BRAND+A" alt="Brand A Logo" class="h-6 sm:h-8 w-auto filter grayscale hover:filter-none transition duration-300">
+                        <img src="https://placehold.co/100x30/1E293B/9CA3AF?text=ARTIST+B" alt="Artist B Logo" class="h-6 sm:h-8 w-auto filter grayscale hover:filter-none transition duration-300">
+                        <img src="https://placehold.co/100x30/1E293B/9CA3AF?text=LABEL+C" alt="Label C Logo" class="h-6 sm:h-8 w-auto filter grayscale hover:filter-none transition duration-300">
+                        <img src="https://placehold.co/100x30/1E293B/9CA3AF?text=BRAND+D" alt="Brand D Logo" class="h-6 sm:h-8 w-auto filter grayscale hover:filter-none transition duration-300">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Contact Section / CTA (Kept structure) --><section id="contact" class="py-24">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 bg-card-bg p-10 rounded-2xl shadow-2xl border border-accent/30">
                 <h2 class="text-4xl font-extrabold text-white mb-4 text-center">READY TO DROP?</h2>
                 
                 <!-- Subtitle --><p class="text-xl text-gray-300 mb-10 text-center" id="contact-subtitle">
-                    Tell me about your next project. Serious inquiries from artists, managers, and labels only.
+                    Tell me about your next project. Serious inquiries from artists, managers, and brand owners only.
                 </p>
 
                 <!-- Success Message (The user will be redirected to the Formspree thank you page) --><div id="success-message" class="hidden text-center py-12 rounded-xl bg-accent/20 border-2 border-accent transition duration-500">
@@ -276,9 +439,12 @@
                     <p class="text-gray-300">Thanks for reaching out. I'll get back to you within 24 hours.</p>
                 </div>
 
-                <form id="contact-form" class="space-y-6" action="https://formspree.io/f/xyzndvob" method="POST">
+                <!--
+                    *** FORM: CONNECTED TO FORMSPREE ***
+                    Action attribute is set to your Formspree endpoint: https://formspree.io/f/xyzndvob
+                --><form id="contact-form" class="space-y-6" action="https://formspree.io/f/xyzndvob" method="POST">
                     <div>
-                        <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Name / Label Name</label>
+                        <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Name / Label / Brand Name</label>
                         <input type="text" id="name" name="name" class="w-full px-4 py-3 bg-dark-bg border border-gray-700 rounded-lg focus:ring-accent focus:border-accent" required>
                     </div>
                     <div>
@@ -286,19 +452,11 @@
                         <input type="email" id="email" name="email" class="w-full px-4 py-3 bg-dark-bg border border-gray-700 rounded-lg focus:ring-accent focus:border-accent" required>
                     </div>
                     <div>
-                        <label for="service" class="block text-sm font-medium text-gray-300 mb-2">Service Needed</label>
-                        <select id="service" name="service" class="w-full px-4 py-3 bg-dark-bg border border-gray-700 rounded-lg focus:ring-accent focus:border-accent" required>
-                            <option value="">Select a Service/Package</option>
-                            <option value="album_launch">Album Launch Package</option>
-                            <option value="graphic_design">Graphic Design Only</option>
-                            <option value="web_design">Website/Landing Page</option>
-                            <option value="marketing">Marketing/Ad Campaigns</option>
-                            <option value="video_editing">Video Editing</option>
-                            <option value="retainer">Label Retainer</option>
-                        </select>
+                        <label for="estimated-budget" class="block text-sm font-medium text-gray-300 mb-2">Estimated Budget Range (Based on Builder)</label>
+                        <!-- This field will be populated by the JS to include the services selected and total price --><input type="text" id="estimated-budget" name="Estimated Budget" class="w-full px-4 py-3 bg-dark-bg border border-gray-700 rounded-lg focus:ring-accent focus:border-accent" readonly value="Please use the Service Builder above to customize your project.">
                     </div>
                     <div>
-                        <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Project Details</label>
+                        <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Project Details (Describe your goals and target audience)</label>
                         <textarea id="message" name="message" rows="4" class="w-full px-4 py-3 bg-dark-bg border border-gray-700 rounded-lg focus:ring-accent focus:border-accent" required></textarea>
                     </div>
                     <button type="submit" class="w-full py-4 text-lg font-bold bg-accent hover:bg-accent-dark text-white rounded-xl glow transition duration-300 transform hover:scale-[1.01]">
@@ -311,27 +469,223 @@
 
     <!-- Footer --><footer class="bg-card-bg border-t border-gray-700 mt-12 py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-400">
-            <p>DROPLAB STUDIO</p>
+            <p>&copy; 2025 DROPLAB STUDIO. All Creative Rights Reserved.</p>
+            <p class="mt-2 text-sm">Design & Strategy: <span class="text-accent">One Man Army.</span></p>
         </div>
     </footer>
 
-    <!-- JavaScript for Mobile Menu ONLY (Form submission is now handled by the browser) --><script>
-        // --- Mobile Menu Functionality ---
-        document.getElementById('menu-button').addEventListener('click', function() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        });
-        
-        // Hide mobile menu when a link is clicked
-        const mobileLinks = document.querySelectorAll('#mobile-menu a');
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                document.getElementById('mobile-menu').classList.add('hidden');
-            });
-        });
+    <!-- JavaScript for Mobile Menu and Dynamic Pricing --><script>
+        // --- 1. Dynamic Pricing Setup ---
+        const serviceData = [
+            { id: 'design_branding', name: 'Logo Suite', price: 100, category: 'Visual Identity & Assets' },
+            { id: 'design_album', name: 'Album Cover Art', price: 100, category: 'Visual Identity & Assets' }, 
+            // The Apparel Graphic Design service is handled with unit pricing (quantity input)
+            { id: 'design_merch', name: 'Apparel Graphic Design (per graphic)', basePrice: 0, unitPrice: 50, category: 'Visual Identity & Assets' },
+            
+            { id: 'web_landing', name: 'High-Converting Website Landing Page', price: 200, category: 'Digital Presence & Commerce' },
+            { id: 'web_full_site', name: 'Fully Custom Built Website and Shop', price: 500, category: 'Digital Presence & Commerce' },
+            
+            { id: 'marketing_plan', name: '30-Day Release Strategy (ALL CONTENT INCLUDED)', price: 500, category: 'Launch Strategy & Scaling' },
+            
+            { id: 'marketing_ads', name: 'Ad Campaign Management (Performance Based)', price: 'CUSTOM QUOTE', category: 'Launch Strategy & Scaling' },
+            
+            { id: 'video_edit', name: 'Music Video Edit', price: 150, category: 'Dynamic Media & Content' },
+            
+            { id: 'video_shorts', name: 'Short Form Video Content Package (10 Edits)', price: 200, category: 'Dynamic Media & Content' },
+            
+            // NEW SERVICE: Label Retainer is in its own category
+            { id: 'retainer_label', name: 'Label/Brand Retainer (Priority Access)', price: 'CUSTOM QUOTE', category: 'Long-Term Partnership & Retainer' },
+        ];
 
-        // The form submission JavaScript was intentionally removed to allow the browser to post data directly 
-        // to Formspree, which handles the email delivery and thank-you page redirect.
+        const checklistContainer = document.getElementById('service-checklist');
+        const totalDisplay = document.getElementById('current-total');
+        const contactCtaButton = document.getElementById('contact-cta-button');
+        const budgetInput = document.getElementById('estimated-budget');
+
+        // Function to group services by category
+        function groupServices(services) {
+            return services.reduce((acc, service) => {
+                if (!acc[service.category]) {
+                    acc[service.category] = [];
+                }
+                acc[service.category].push(service);
+                return acc;
+            }, {});
+        }
+
+        // Function to render the checklist HTML
+        function renderServiceChecklist() {
+            const grouped = groupServices(serviceData);
+            let html = '';
+
+            for (const category in grouped) {
+                html += `
+                    <div class="pb-4 border-b border-gray-800 last:border-b-0">
+                        <h4 class="text-2xl font-semibold text-accent mb-4">${category}</h4>
+                `;
+                grouped[category].forEach(service => {
+                    const isCustomQuote = service.price === 'CUSTOM QUOTE';
+                    // Use a common styling class for all fixed-price items
+                    const itemClass = 'bg-dark-bg cursor-pointer transition duration-200 hover:bg-card-bg/70';
+
+                    if (service.unitPrice !== undefined) {
+                        // Render quantity input for unit-priced items
+                        const defaultValue = '0'; 
+                        
+                        html += `
+                            <div class="flex justify-between items-center py-3 px-4 bg-dark-bg rounded-lg transition duration-200 hover:bg-card-bg/70">
+                                <div class="flex items-center w-2/3">
+                                    <input type="number" id="${service.id}_qty" min="0" value="${defaultValue}" data-unit-price="${service.unitPrice}" data-name="${service.name}" class="quantity-input w-16 text-center mr-4" onchange="updatePrice()" onkeyup="updatePrice()">
+                                    <span class="text-lg font-medium text-gray-100">${service.name.replace(' (per graphic)', '')}</span>
+                                </div>
+                                <span class="text-xl font-bold text-gray-300">$${service.unitPrice.toLocaleString('en-US')} / unit</span>
+                            </div>
+                        `;
+                    } else {
+                        // Render standard fixed-price items (checkboxes, including CUSTOM QUOTE)
+                        const priceDisplay = isCustomQuote ? service.price : `$${service.price.toLocaleString('en-US')}`;
+                        // Use the default text color (text-gray-300) for both fixed price and CUSTOM QUOTE.
+                        const priceColorClass = 'text-gray-300';
+                        const priceDataAttribute = isCustomQuote ? 'data-price-type="CUSTOM_QUOTE"' : `data-price="${service.price}"`;
+                        
+                        html += `
+                            <label for="${service.id}" class="flex justify-between items-center py-3 px-4 rounded-lg ${itemClass}">
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="${service.id}" ${priceDataAttribute} data-name="${service.name}" class="custom-checkbox">
+                                    <span class="text-lg font-medium text-gray-100">${service.name}</span>
+                                </div>
+                                <span class="text-xl font-bold ${priceColorClass}">${priceDisplay}</span>
+                            </label>
+                        `;
+                    }
+                });
+                html += '</div>';
+            }
+            checklistContainer.innerHTML = html;
+            // Ensure initial price is calculated based on any defaults (now 0)
+            updatePrice();
+        }
+
+        // Function to update the total price
+        function updatePrice() {
+            let total = 0;
+            const selectedItems = [];
+            let requiresCustomQuote = false; // Flag for CUSTOM QUOTE
+
+            // 1. Calculate Fixed-Price Items (Checkboxes)
+            const checkboxes = checklistContainer.querySelectorAll('input[type="checkbox"]:checked');
+            checkboxes.forEach(checkbox => {
+                const name = checkbox.dataset.name;
+                
+                // Check for CUSTOM_QUOTE
+                if (checkbox.dataset.priceType === 'CUSTOM_QUOTE') { 
+                    requiresCustomQuote = true;
+                    // Do not add to total, but add to selected items list with note
+                    selectedItems.push(`${name} (Requires Custom Quote)`);
+                    // Use a nominal internal value for custom quote items so the total doesn't show $0 if only a custom quote item is selected.
+                    total += 1; 
+                } else {
+                    const price = parseInt(checkbox.dataset.price);
+                    total += price;
+                    selectedItems.push(name);
+                }
+            });
+
+            // 2. Calculate Quantity-Based Items (Number Inputs)
+            const quantityInputs = checklistContainer.querySelectorAll('input[type="number"]');
+            quantityInputs.forEach(input => {
+                const quantity = parseInt(input.value) || 0;
+                const unitPrice = parseInt(input.dataset.unitPrice);
+                
+                if (quantity > 0) {
+                    const itemTotal = quantity * unitPrice;
+                    total += itemTotal;
+                    // For budget summary: include quantity in the name
+                    selectedItems.push(`${input.dataset.name.replace(' (per graphic)', '')} (${quantity} units: $${itemTotal.toLocaleString('en-US')})`);
+                }
+            });
+            
+            // Determine prefix for total display and budget input
+            const totalPrefix = requiresCustomQuote ? 'ESTIMATE: ' : '';
+            const totalDisplayValue = `$${total.toLocaleString('en-US')}`;
+            
+            // Update the Total Display appearance and text
+            totalDisplay.textContent = totalPrefix + totalDisplayValue;
+            // Ensure the main total text remains the primary accent color unless total is $0
+            totalDisplay.classList.remove('text-yellow-400');
+            totalDisplay.classList.add('text-accent');
+
+
+            // Update Contact CTA button state and budget input
+            if (total > 0 || requiresCustomQuote) {
+                const buttonText = requiresCustomQuote 
+                    ? `REQUEST CONSULTATION (EST. $${total.toLocaleString('en-US')})`
+                    : `CONTACT ME WITH $${total.toLocaleString('en-US')} PROJECT`;
+
+                contactCtaButton.textContent = buttonText;
+                contactCtaButton.classList.remove('opacity-60', 'pointer-events-none');
+                contactCtaButton.classList.add('glow');
+                
+                // Update hidden budget input for form submission
+                const budgetStatus = requiresCustomQuote ? 'NOTE: Final price requires consultation.' : 'Final Price.';
+                budgetInput.value = `Custom Project - ${totalPrefix}Total: ${totalDisplayValue}. ${budgetStatus} Services: ${selectedItems.join('; ')}.`;
+            } else {
+                // CONVERSION REFINEMENT: Updated default text
+                contactCtaButton.textContent = 'Select Services to Calculate Cost'; 
+                contactCtaButton.classList.add('opacity-60', 'pointer-events-none');
+                contactCtaButton.classList.remove('glow');
+
+                // Reset hidden budget input
+                budgetInput.value = 'Please use the Service Builder above to customize your project.';
+            }
+        }
+
+        // --- 2. Portfolio Expand Logic ---
+        function setupPortfolioExpansion() {
+            const loadMoreBtn = document.getElementById('load-more-btn');
+            const hiddenStudies = document.getElementById('hidden-case-studies');
+
+            loadMoreBtn.addEventListener('click', () => {
+                // Remove 'hidden' class to show the other 6 case studies
+                hiddenStudies.classList.remove('hidden');
+                
+                // Hide the button itself
+                loadMoreBtn.style.display = 'none';
+
+                // Optional: Scroll down slightly to make the new content visible
+                hiddenStudies.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        }
+
+        // --- 3. General Page Setup ---
+        window.onload = function() {
+            // Mobile Menu Functionality
+            document.getElementById('menu-button').addEventListener('click', function() {
+                const menu = document.getElementById('mobile-menu');
+                menu.classList.toggle('hidden');
+            });
+            
+            // Hide mobile menu when a link is clicked
+            const mobileLinks = document.querySelectorAll('#mobile-menu a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                });
+            });
+
+            // Render checklist and attach listeners
+            renderServiceChecklist();
+            // Attach a single listener to the container for fixed-price items (checkboxes)
+            checklistContainer.addEventListener('change', (event) => {
+                if (event.target.type === 'checkbox') {
+                    updatePrice();
+                }
+            });
+            // Quantity inputs have inline onchange/onkeyup handlers to ensure real-time updates.
+            
+            // Setup the portfolio expansion feature
+            setupPortfolioExpansion();
+        };
     </script>
 </body>
 </html>
